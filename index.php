@@ -1,24 +1,42 @@
 <?php
 
 session_start();
-if(isset($_SESSION["vagn2"])){
+if(isset($_SESSION["vagn"])){
     
 }else{
-$_SESSION["vagn2"] = array();
+    $_SESSION["vagn"] = array();
 }
-$arr = array(); //session
-$arr[] = array(); //vagn
-$arr[0][] = 3;
-$arr[0][] = 4;
-var_dump($arr);
+
+$fanns_redan = false;
+
+//foreach($_SESSION["vagn"] as $produkt){
+//    if($produkt["id"] == ){
+//        echo "<br>Hittad avbryter";
+//        $fanns_redan = true;
+//    }else{
+//        echo "<br>Matchar inte. Forsätter söka";
+//    }
+//}
 
 if (isset($_GET["id"])) {
     //lägg t prod
 //    echo $_GET["id"];
+    //foreach ($_SESSION["vagn"] as $produkt){
+    for($i=0;$i<count($_SESSION["vagn"]);$i++){
+        
+    if($_SESSION["vagn"][$i]["id"]==$_GET["id"]) {
+            echo "woogoo fins en " . $_GET["id"];
+            $_SESSION["vagn"][$i]["antal"] = $_SESSION["vagn"][$i]["antal"] + $_GET["antal"];
+            $fanns_redan = true;                           
+        }else{
+            $_SESSION["vagn"][] = array("id"=>$_GET["id"],"antal"=>$_GET["antal"]);
+        }
+        
+        
+    }
+    
 
-    $produkt = $_GET["id"];
-//    array_push($_SESSION["vagn"], $produkt);
-    $_SESSION["vagn2"][] = $produkt;
+    
 
 } else {
     //ingen produkt
