@@ -1,9 +1,8 @@
 <?php
-
 session_start();
-if(isset($_SESSION["vagn"])){
+if (isset($_SESSION["vagn"])) {
     
-}else{
+} else {
     $_SESSION["vagn"] = array();
 }
 
@@ -22,24 +21,30 @@ if (isset($_GET["id"])) {
     //lägg t prod
 //    echo $_GET["id"];
     //foreach ($_SESSION["vagn"] as $produkt){
-    for($i=0;$i<count($_SESSION["vagn"]);$i++){
+    if (count($_SESSION["vagn"]) < 1) {
+        $_SESSION["vagn"][] = array("id" => $_GET["id"], "antal" => $_GET["antal"]);
+    }
+    for ($i = 0; $i < count($_SESSION["vagn"]); $i++) {
         
-    if($_SESSION["vagn"][$i]["id"]==$_GET["id"]) {
+        if ($_SESSION["vagn"][$i]["id"] == $_GET["id"]) {
             echo "woogoo fins en " . $_GET["id"];
             $_SESSION["vagn"][$i]["antal"] = $_SESSION["vagn"][$i]["antal"] + $_GET["antal"];
-            $fanns_redan = true;                           
-        }else{
-            $_SESSION["vagn"][] = array("id"=>$_GET["id"],"antal"=>$_GET["antal"]);
-        }
-        
-        
+            $fanns_redan = true;
+        } 
     }
-    
-
-    
-
+    //loop körd, fanns redan true om den fanns i vagnen
+    if ($fanns_redan == false) {
+        $_SESSION["vagn"][] = array("id" => $_GET["id"], "antal" => $_GET["antal"]);
+    }
 } else {
     //ingen produkt
+}
+
+if(isset($_GET["rensa"])){
+    unset($_SESSION["vagn"]);
+    header("Location: index.php");
+    exit();
+    
 }
 var_dump($_SESSION);
 //    echo $_GET["antal"];
@@ -116,7 +121,7 @@ var_dump($_SESSION);
             </table>
 
             <form>
-                <input type="submit" name="action" value="reset">
+                <input href="index.php?action=rensa" type="submit" name="rensa" value="rensa" href="index.php">
             </form>
 
 
