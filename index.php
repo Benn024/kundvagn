@@ -22,13 +22,14 @@ if (isset($_GET["id"])) {
 //    echo $_GET["id"];
     //foreach ($_SESSION["vagn"] as $produkt){
     if (count($_SESSION["vagn"]) < 1) {
-        $_SESSION["vagn"][] = array("id" => $_GET["id"], "antal" => $_GET["antal"]);
+        $_SESSION["vagn"][] = array("id" => $_GET["id"], "antal" => $_GET["antal"], "pris"=>$_GET["pris"]);
     }
     for ($i = 0; $i < count($_SESSION["vagn"]); $i++) {
         
         if ($_SESSION["vagn"][$i]["id"] == $_GET["id"]) {
-            echo "woogoo fins en " . $_GET["id"];
+//            echo "woogoo fins en " . $_GET["id"];
             $_SESSION["vagn"][$i]["antal"] = $_SESSION["vagn"][$i]["antal"] + $_GET["antal"];
+            $_SESSION["vagn"][$i]["pris"] = $_SESSION["vagn"][$i]["pris"] + $_GET["pris"];
             $fanns_redan = true;
         } 
     }
@@ -51,7 +52,7 @@ var_dump($_SESSION);
 //    if(isset($_SESSION["vagn"])){
 //    }
 ?>
-<html>
+<html>    
     <head>
         <meta charset="UTF-8">
         <title>Säljer kattningar</title>
@@ -65,6 +66,7 @@ var_dump($_SESSION);
                         <td>
                             <p>Katt</p>
                             <input type="hidden" name="id" value="katt">
+                            <input type="hidden" name="pris" value="300">
 
                         </td>
                         <td>
@@ -79,6 +81,7 @@ var_dump($_SESSION);
                         <td>
                             <p>Hund</p>
                             <input type="hidden" name="id" value="hund">
+                            <input type="hidden" name="pris" value="700">
 
                         </td>
                         <td>
@@ -94,6 +97,7 @@ var_dump($_SESSION);
                         <td>
                             <p>Gaben</p>
                             <input type="hidden" name="id" value="Gaben">
+                            <input type="hidden" name="pris" value="1337">
 
                         </td>
                         <td>
@@ -109,7 +113,7 @@ var_dump($_SESSION);
                         <td>
                             <p>DelFIN</p>
                             <input type="hidden" name="id" value="delfin">
-
+                            <input type="hidden" name="pris" value="1000"
                         </td>
                         <td>
                             <input type="text" name="antal" value="1">
@@ -123,7 +127,9 @@ var_dump($_SESSION);
             <form>
                 <input href="index.php?action=rensa" type="submit" name="rensa" value="rensa" href="index.php">
             </form>
-
+            <form>
+                <input href="" type="submit" name="visa" value="Visa Kundvagn" href="">
+            </form>
 
 
         </div>
