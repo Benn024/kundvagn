@@ -133,5 +133,20 @@ var_dump($_SESSION);
 
 
         </div>
+        <div>
+            <?php
+                foreach($_SESSION["vagn"] as $pryl){
+                    $kundvagn .= "<tr><form action='' method='get'>";
+                    $kundvagn .= "<td>" . $pryl["pris"] . "</td>";
+                    $kundvagn .= "<td>";
+                    $kundvagn .= "<input type= 'text' name='antal' value'" .$pryl["antal"] ."'>";
+                    $kundvagn .= "<input type= 'hidden' name='id' value'" .$pryl["id"] ."'>";
+                    $kundvagn .= "</td>";
+                    $kundvagn .= "<td>" . $pryl["pris"] * $pryl["antal"] . "</td>";
+                    $kundvagn .= "<input type= 'submit' name='action' value='update'></td>";
+                }
+            ?>
+            <!--<input type="submit" name="action" value="delete">-->
+        </div>
     </body>
 </html>
